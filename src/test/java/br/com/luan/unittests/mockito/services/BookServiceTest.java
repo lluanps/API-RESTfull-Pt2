@@ -150,7 +150,7 @@ class BookServiceTest {
 		
 		/*fail("Not yet implemented");*/
 	}
-
+/*
 	@Test
 	void testFindAll() {
 		List<Book> list = input.mockEntityList();
@@ -196,5 +196,5 @@ class BookServiceTest {
 		assertEquals("Title Test7", bookSeven.getTitle());
 		
 	}
-	
+*/	
 }

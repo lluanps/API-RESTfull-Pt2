@@ -1,8 +1,13 @@
 package br.com.luan.services;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
@@ -25,25 +30,35 @@ public class BookService {
 	BookRepository repository;
 	
 	@Autowired
+	PagedResourcesAssembler<BookVO> assembler;
+	
+	@Autowired
 	PersonMapper mapper;
 
-	public List<BookVO> findAll() {
+	public PagedModel<EntityModel<BookVO>> findAll(Pageable pageable) {
 		
 		logger.info("Finding all books");
 		
-		var books=  DozerMapper.parseListObjects(repository.findAll(), BookVO.class);
-		books
-			.stream()
-				.forEach(p -> {
-					try {
-						p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				});
+		var bookPage = repository.findAll(pageable);
 		
-		return books;
+		var bookVoPage = bookPage.map(p -> DozerMapper.parseObject(p, BookVO.class));
+		bookVoPage.map(p -> {
+			try {
+				return p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return p;
+		});
+
+		Link link = linkTo(
+				methodOn(BookController.class)
+				.findAll(pageable.getPageNumber()
+						, pageable.getPageSize()
+						, "asc")).withSelfRel();
+		return assembler.toModel(bookVoPage, link);
 	}
+
 
 	public BookVO findById(Long id) throws Exception {
 		
