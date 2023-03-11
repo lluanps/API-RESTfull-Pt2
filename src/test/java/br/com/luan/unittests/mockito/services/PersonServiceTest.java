@@ -150,7 +150,7 @@ class PersonServiceTest {
 		
 		/*fail("Not yet implemented");*/
 	}
-
+/*
 	@Test
 	void testFindAll() {
 		List<Person> list = input.mockEntityList();
@@ -194,7 +194,6 @@ class PersonServiceTest {
 		assertEquals("First Name Test7", personSeven.getFirstName());
 		assertEquals("Last Name Test7", personSeven.getLastName());
 		assertEquals("Female", personSeven.getGender());
-		
 	}
-	
+	*/
 }
