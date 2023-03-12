@@ -1,3 +1,5 @@
+server:
+  port: 80
 file:
   upload-dir: /ws-projects/arquivos-rest-com-springboot-e-java
 spring:
