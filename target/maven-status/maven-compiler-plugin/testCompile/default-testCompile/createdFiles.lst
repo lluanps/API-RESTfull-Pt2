@@ -1,0 +1,9 @@
+br\com\luan\integrationtests\testcontainers\AbstractIntegrationTest$Initializer.class
+br\com\luan\unittests\mapper\mocks\MockBook.class
+br\com\luan\unittests\mapper\DozerConverterTest.class
+br\com\luan\unittests\mapper\mocks\MockPerson.class
+br\com\luan\integrationtests\testcontainers\AbstractIntegrationTest.class
+br\com\luan\integrationtests\swagger\SwaggerIntegrationTest.class
+br\com\luan\configs\TestConfigs.class
+br\com\luan\unittests\mockito\services\PersonServiceTest.class
+br\com\luan\unittests\mockito\services\BookServiceTest.class
